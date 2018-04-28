@@ -7,7 +7,6 @@ package com.hbturing.eteacher.servicefrk;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -20,16 +19,13 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.alibaba.fastjson.JSON;
-import com.hbturing.eteacher.servicefrk.models.ExampleModel;
-
 /**
  * @author wuheng(@hbturing.com)
  * @date 2018年4月11日
  * @desc
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = com.hbturing.eteacher.servicefrk.controllers.RequestController.class)
+@SpringBootTest(classes = com.github.isdream.springcloud.cores.HttpController.class)
 @AutoConfigureMockMvc
 public class RequestControllerTest {
 
@@ -62,17 +58,4 @@ public class RequestControllerTest {
 				.andExpect(jsonPath("message").value("Unsupport method, please check your URL."));
 	}
 	
-	@Test
-	public void testValidRequestBody() throws Exception {
-		ExampleModel model = new ExampleModel();
-		model.setName("turing");
-		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.post(
-							VALID_PATH)
-							.accept(MediaType.APPLICATION_JSON_UTF8)
-							.contentType(MediaType.APPLICATION_JSON)
-							.content(JSON.toJSONString(model));
-		mvc.perform(builder)
-				.andExpect(status().isOk())
-				.andDo(print());
-	}
 }
