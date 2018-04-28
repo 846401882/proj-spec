@@ -1,12 +1,11 @@
 /**
  * Copyright (2018, ) Institute of Software, Chinese Academy of Sciences
  */
-package com.github.isdream.springcloud.spi;
+package com.github.isdream.springcloud.cores;
 
 import java.util.Map;
 
 import com.alibaba.fastjson.JSON;
-import com.github.isdream.springcloud.cores.HttpResponse;
 
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)
@@ -32,7 +31,7 @@ public abstract class HttpBodyHandler {
 	 * @return
 	 */
 	protected HttpResponse postHandle(Object object) {
-		return new HttpResponse(HttpResponse.OK, object);
+		return new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_OK, object);
 	}
 	
 	/**

@@ -10,14 +10,12 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Component;
 
-import com.github.isdream.springcloud.spi.HttpBodyHandler;
-
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)
  * @since   2018/4/28
  */
 @Component
-public class HandlerConfigure implements CommandLineRunner {
+public class HttpHandlerConfigure implements CommandLineRunner {
 
 	protected Properties handlers = new Properties();
 

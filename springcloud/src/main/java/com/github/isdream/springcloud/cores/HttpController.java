@@ -28,12 +28,8 @@ public class HttpController {
 	
 	public final static String UNSUPPORT_REQUEST_URL = "Unsupport request URL.";
 
-	public final static String BODY_KIND = "kind";
-	
-	public final static String BODY_PARAMS = "params";
-	
 	@Autowired
-	protected HandlerConfigure configure;
+	protected HttpHandlerConfigure configure;
 	
 	@SuppressWarnings("unchecked")
 	@RequestMapping("/*")
@@ -44,7 +40,7 @@ public class HttpController {
 		m_logger.info("Begin to deal with " + request.getPathInfo());
 		String responseBody = configure.geHandler(
 				getKind(request, body)).handle(
-						(Map<String, Object>) body.get(BODY_PARAMS));
+						(Map<String, Object>) body.get(HttpConstants.HTTP_REQUEST_PARAM_INFO));
 		m_logger.info("Deal with " + request.getPathInfo() + " successfully");
 		return responseBody;
 	}
@@ -54,7 +50,7 @@ public class HttpController {
 	public String handleInvalidHttpRequestURL(HttpServletRequest request) {
 		m_logger.error("Unsupport request URL" + request.getPathInfo());
 		return JSONUtils.toJSONString(
-        		new HttpResponse(HttpResponse.FAILED, UNSUPPORT_REQUEST_URL));
+        		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED, UNSUPPORT_REQUEST_URL));
 	}
 	
 	@ExceptionHandler
@@ -63,7 +59,7 @@ public class HttpController {
 		m_logger.error("Fail to deal with " + request.getPathInfo() 
 									+ ", the reason is: " + String.valueOf(e));
         return JSONUtils.toJSONString(
-        		new HttpResponse(HttpResponse.FAILED, String.valueOf(e)));
+        		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED, String.valueOf(e)));
 	}
 	
 	
@@ -75,7 +71,7 @@ public class HttpController {
 		try {
 			return request.getPathInfo().substring(1);
 		} catch (Exception e) {
-			return (String) body.get(BODY_KIND);
+			return (String) body.get(HttpConstants.HTTP_REQUEST_PATH_INFO);
 		}
 	}
 

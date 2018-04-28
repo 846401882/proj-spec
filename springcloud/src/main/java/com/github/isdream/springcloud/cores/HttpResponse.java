@@ -9,10 +9,6 @@ package com.github.isdream.springcloud.cores;
  */
 public class HttpResponse {
 
-	public final static int OK = 200;
-
-	public final static int FAILED = 500;
-
 	protected int status;
 	
 	protected String message;
