@@ -5,8 +5,6 @@ package com.github.isdream.springcloud;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)
@@ -16,8 +14,6 @@ import org.springframework.context.annotation.ComponentScan;
  * Spring cloud framework
  */ 
 @SpringBootApplication
-@ComponentScan
-@EnableConfigurationProperties
 public class ApplicationServer {
 
 	public static void main(String[] args) {

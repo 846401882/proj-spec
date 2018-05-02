@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 
 import com.github.isdream.springcloud.cores.HttpConstants;
-import com.github.isdream.springcloud.cores.HttpResponse;
 import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
 
 /**

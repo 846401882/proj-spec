@@ -14,7 +14,7 @@ import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
  * @since   2018/4/28
  */
 @Component
-public class HttpHandlerConfigure {
+public class HttpHandlerConfigure  {
 
 	protected Properties handlers = new Properties();
 

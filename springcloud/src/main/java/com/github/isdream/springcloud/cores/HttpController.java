@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,6 +23,7 @@ import com.github.isdream.springcloud.utils.JSONUtils;
  * @since   2018/4/28
  */
 @RestController
+@ComponentScan
 public class HttpController {
 
 	public final static Logger m_logger = Logger.getLogger(HttpController.class);
@@ -46,7 +48,7 @@ public class HttpController {
 		m_logger.error("Unsupport request URL" + request.getPathInfo());
 		return JSONUtils.toJSONString(
         		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED
-        				, HttpConstants.EXCEPTION_UNSUPPORT_REQUEST_URL));
+        				, HttpConstants.EXCEPTION_INVALID_REQUEST_URL));
 	}
 	
 	@ExceptionHandler

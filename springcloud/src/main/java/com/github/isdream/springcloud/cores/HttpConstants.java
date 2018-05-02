@@ -38,7 +38,7 @@ public class HttpConstants {
 	 * 
 	 ******************************************************************/
 	
-	public final static String EXCEPTION_UNSUPPORT_REQUEST_URL = "Unsupport request URL.";
+	public final static String EXCEPTION_INVALID_REQUEST_URL = "Unsupport request URL or null request body.";
 	
 	public final static String EXCEPTION_UNKNOWN_REQUEST_URL = "Unknown request URL.";
 

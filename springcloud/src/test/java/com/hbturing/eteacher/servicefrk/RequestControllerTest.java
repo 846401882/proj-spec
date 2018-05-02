@@ -19,15 +19,17 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import com.github.isdream.springcloud.cores.HttpConstants;
+
 /**
- * @author wuheng(@hbturing.com)
+ * @author wuheng(@otcaix.iscas.ac.cn)
  * @date 2018年4月11日
  * @desc
  */
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = com.github.isdream.springcloud.cores.HttpController.class)
 @AutoConfigureMockMvc
-public class RequestControllerTest {
+public class RequestControllerTest  {
 
 	public final static String ROOT_PATH = "/";
 	
@@ -44,8 +46,7 @@ public class RequestControllerTest {
 							ROOT_PATH).accept(MediaType.APPLICATION_JSON);
 		mvc.perform(builder)
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("status").value("error"))
-				.andExpect(jsonPath("message").value("Request body is null."));
+				.andExpect(jsonPath("status").value(HttpConstants.HTTP_RESPONSE_STATUS_FAILED));
 	}
 	
 	@Test
@@ -54,8 +55,8 @@ public class RequestControllerTest {
 							INVALID_PATH).accept(MediaType.APPLICATION_JSON);
 		mvc.perform(builder)
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("status").value("error"))
-				.andExpect(jsonPath("message").value("Unsupport method, please check your URL."));
+				.andExpect(jsonPath("status").value(HttpConstants.HTTP_RESPONSE_STATUS_FAILED))
+				.andExpect(jsonPath("message").value(HttpConstants.EXCEPTION_INVALID_REQUEST_URL));
 	}
 	
 }
