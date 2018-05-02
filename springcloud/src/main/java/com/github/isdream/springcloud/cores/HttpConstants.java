@@ -23,6 +23,8 @@ public class HttpConstants {
 
 	public final static String HTTP_REQUEST_PARAM_INFO = "paramInfo";
 	
+	public final static String HTTP_REQUEST_CONSTRAINTS = "constaints";
+	
 	/*****************************************************************
 	 * 
 	 *                       HTTP Response

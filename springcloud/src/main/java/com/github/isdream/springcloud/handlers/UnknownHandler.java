@@ -14,9 +14,11 @@ import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
  * @author wuheng@otcaix.iscas.ac.cn
  * @since  2018年4月28日
  * 
+ * <p>
+ * The {@code UnkownHandler} class is a {@code HttpBodyHandler} implementation example
  */
 @Component
-public class ErrorHandler extends HttpBodyHandler {
+public class UnknownHandler extends HttpBodyHandler {
 
 	@Override
 	protected Object doHandle(Map<String, Object> body) throws Exception {
@@ -25,7 +27,7 @@ public class ErrorHandler extends HttpBodyHandler {
 
 	@Override
 	public String getOperation() {
-		return "unkown";
+		return "unknown";
 	}
 
 }

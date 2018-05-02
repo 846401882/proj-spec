@@ -6,6 +6,10 @@ package com.github.isdream.springcloud.cores;
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)
  * @since   2018/4/28
+ * 
+ * <p>
+ * The {@code HttpResponse} class represents the return
+ * value should be bound to the web response body.
  */
 public class HttpResponse {
 

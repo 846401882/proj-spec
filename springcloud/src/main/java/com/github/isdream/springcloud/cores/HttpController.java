@@ -46,7 +46,7 @@ public class HttpController {
 	@ResponseBody
 	public String handleInvalidHttpRequestURL(HttpServletRequest request) {
 		m_logger.error("Fail to deal with " + request.getPathInfo() 
-						+ "the reason is: " + HttpConstants.EXCEPTION_INVALID_REQUEST_URL);
+						+ " the reason is: " + HttpConstants.EXCEPTION_INVALID_REQUEST_URL);
 		return JSONUtils.toJSONString(
         		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED
         				, HttpConstants.EXCEPTION_INVALID_REQUEST_URL));
