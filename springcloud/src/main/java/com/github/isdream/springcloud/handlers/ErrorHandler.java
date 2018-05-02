@@ -20,7 +20,7 @@ public class ErrorHandler extends HttpBodyHandler {
 
 	@Override
 	protected Object doHandle(Map<String, Object> body) throws Exception {
-		throw new Exception(HttpConstants.EXCEPTION_UNKNOWN_REQUEST_URL);
+		throw new Exception(HttpConstants.EXCEPTION_INVALID_REQUEST_URL);
 	}
 
 	@Override

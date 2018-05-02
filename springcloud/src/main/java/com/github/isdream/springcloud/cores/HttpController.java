@@ -38,14 +38,15 @@ public class HttpController {
 							@RequestBody Map<String, Object> body) throws Exception{
 		m_logger.info("Begin to deal with " + request.getServletPath());
 		String responseBody = configure.geHandler(getOperator(request, body)).handle(body);
-		m_logger.info("Deal with " + request.getServletPath() + " successfully");
+		m_logger.info("Successfully deal with " + request.getServletPath());
 		return responseBody;
 	}
 	
 	@RequestMapping("/*/**")
 	@ResponseBody
 	public String handleInvalidHttpRequestURL(HttpServletRequest request) {
-		m_logger.error("Unsupport request URL" + request.getPathInfo());
+		m_logger.error("Fail to deal with " + request.getPathInfo() 
+						+ "the reason is: " + HttpConstants.EXCEPTION_INVALID_REQUEST_URL);
 		return JSONUtils.toJSONString(
         		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED
         				, HttpConstants.EXCEPTION_INVALID_REQUEST_URL));
