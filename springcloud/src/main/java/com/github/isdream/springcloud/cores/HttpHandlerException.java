@@ -8,7 +8,7 @@ package com.github.isdream.springcloud.cores;
  * @since  2018年4月28日
  * 
  */
-public class HttpBodyHandlerException extends Exception {
+public class HttpHandlerException extends Exception {
 
 	/**
 	 * 
@@ -18,13 +18,13 @@ public class HttpBodyHandlerException extends Exception {
 	
 	protected final int status;
 
-	public HttpBodyHandlerException(int status, String message, Throwable cause) {
+	public HttpHandlerException(int status, String message, Throwable cause) {
 		super(message, cause);
 		this.status = status;
 	}
 
 
-	public HttpBodyHandlerException(int status, String message) {
+	public HttpHandlerException(int status, String message) {
 		super(message);
 		this.status = status;
 	}

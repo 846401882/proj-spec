@@ -10,6 +10,11 @@ package com.github.isdream.springcloud.cores;
  */
 public class HttpConstants {
 
+	/*****************************************************************
+	 * 
+	 *                       HTTP Request
+	 * 
+	 *****************************************************************/
 	public final static String HTTP_REQUEST_PATH_INFO = "pathInfo";
 
 	public final static String HTTP_REQUEST_USER_INFO = "userInfo";
@@ -18,8 +23,23 @@ public class HttpConstants {
 
 	public final static String HTTP_REQUEST_PARAM_INFO = "paramInfo";
 	
+	/*****************************************************************
+	 * 
+	 *                       HTTP Response
+	 * 
+	 *****************************************************************/
 	public final static int HTTP_RESPONSE_STATUS_OK = 200;
 
 	public final static int HTTP_RESPONSE_STATUS_FAILED = 500;
+	
+	/******************************************************************
+	 * 
+	 *                       Http Handler Exceptions
+	 * 
+	 ******************************************************************/
+	
+	public final static String EXCEPTION_UNSUPPORT_REQUEST_URL = "Unsupport request URL.";
+	
+	public final static String EXCEPTION_UNKNOWN_REQUEST_URL = "Unknown request URL.";
 
 }

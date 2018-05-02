@@ -26,22 +26,17 @@ public class HttpController {
 
 	public final static Logger m_logger = Logger.getLogger(HttpController.class);
 	
-	public final static String UNSUPPORT_REQUEST_URL = "Unsupport request URL.";
-
 	@Autowired
 	protected HttpHandlerConfigure configure;
 	
-	@SuppressWarnings("unchecked")
 	@RequestMapping("/*")
 	@ResponseBody
 	public String handleVaildHttpRequest(
 							HttpServletRequest request, 
 							@RequestBody Map<String, Object> body) throws Exception{
-		m_logger.info("Begin to deal with " + request.getPathInfo());
-		String responseBody = configure.geHandler(
-				getKind(request, body)).handle(
-						(Map<String, Object>) body.get(HttpConstants.HTTP_REQUEST_PARAM_INFO));
-		m_logger.info("Deal with " + request.getPathInfo() + " successfully");
+		m_logger.info("Begin to deal with " + request.getServletPath());
+		String responseBody = configure.geHandler(getOperator(request, body)).handle(body);
+		m_logger.info("Deal with " + request.getServletPath() + " successfully");
 		return responseBody;
 	}
 	
@@ -50,7 +45,8 @@ public class HttpController {
 	public String handleInvalidHttpRequestURL(HttpServletRequest request) {
 		m_logger.error("Unsupport request URL" + request.getPathInfo());
 		return JSONUtils.toJSONString(
-        		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED, UNSUPPORT_REQUEST_URL));
+        		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED
+        				, HttpConstants.EXCEPTION_UNSUPPORT_REQUEST_URL));
 	}
 	
 	@ExceptionHandler
@@ -66,10 +62,10 @@ public class HttpController {
 	/**************************************************
 	 * 
 	 **************************************************/
-	private String getKind(HttpServletRequest request, 
+	private String getOperator(HttpServletRequest request, 
 							@RequestBody Map<String, Object> body) {
 		try {
-			return request.getPathInfo().substring(1);
+			return request.getServletPath().substring(1);
 		} catch (Exception e) {
 			return (String) body.get(HttpConstants.HTTP_REQUEST_PATH_INFO);
 		}
