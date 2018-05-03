@@ -3,11 +3,9 @@
  */
 package com.github.isdream.springcloud.handlers;
 
-import java.util.Map;
 
 import org.springframework.stereotype.Component;
 
-import com.github.isdream.springcloud.cores.HttpConstants;
 import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
 
 /**
@@ -19,11 +17,6 @@ import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
  */
 @Component
 public class UnknownHandler extends HttpBodyHandler {
-
-	@Override
-	protected Object doHandle(Map<String, Object> body) throws Exception {
-		throw new Exception(HttpConstants.EXCEPTION_INVALID_REQUEST_URL);
-	}
 
 	@Override
 	public String getOperation() {

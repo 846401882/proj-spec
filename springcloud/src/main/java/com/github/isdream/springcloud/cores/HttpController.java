@@ -3,19 +3,21 @@
  */
 package com.github.isdream.springcloud.cores;
 
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSONObject;
+import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
 import com.github.isdream.springcloud.utils.JSONUtils;
 
 /**
@@ -35,11 +37,13 @@ public class HttpController {
 	@ResponseBody
 	public String handleVaildHttpRequest(
 							HttpServletRequest request, 
-							@RequestBody Map<String, Object> body) throws Exception{
+							@RequestBody JSONObject body) throws Exception{
 		m_logger.info("Begin to deal with " + request.getServletPath());
-		String responseBody = configure.geHandler(getOperator(request, body)).handle(body);
+		HttpBodyHandler handler = configure.geHandler(getOperator(request, body));
+//		String responseBody = configure.geHandler(getOperator(request, body)).handle(body);
 		m_logger.info("Successfully deal with " + request.getServletPath());
-		return responseBody;
+//		return responseBody;
+		return null;
 	}
 	
 	@RequestMapping("/*/**")
@@ -66,12 +70,10 @@ public class HttpController {
 	 * 
 	 **************************************************/
 	private String getOperator(HttpServletRequest request, 
-							@RequestBody Map<String, Object> body) {
-		try {
-			return request.getServletPath().substring(1);
-		} catch (Exception e) {
-			return (String) body.get(HttpConstants.HTTP_REQUEST_PATH_INFO);
-		}
+							JSONObject body) {
+		String operation = request.getServletPath().substring(1);
+		return (!StringUtils.isEmpty(operation)) ? operation :
+				(String) body.get(HttpConstants.HTTP_REQUEST_PATH_INFO);
 	}
 
 }
