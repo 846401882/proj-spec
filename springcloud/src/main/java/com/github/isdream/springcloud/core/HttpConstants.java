@@ -42,5 +42,7 @@ public class HttpConstants {
 	
 	public final static String EXCEPTION_INVALID_REQUEST_URL = "Invalid servlet path was requested";
 	
-
+	public final static String EXCEPTION_MISSING_BEANDEFINITION_ANOTATION = "Annotation BeanDefinition is missing";
+	
+	public final static String EXCEPTION_INVALID_BEANDEFINITION_ANOTATION = "Annotation BeanDefinition is invalid";
 }

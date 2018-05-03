@@ -4,21 +4,22 @@
 package com.github.isdream.springcloud.core;
 
 
-import java.util.Map;
+import java.lang.reflect.Method;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.ComponentScan;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.github.isdream.springcloud.core.annotation.BeanDefinition;
 import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 import com.github.isdream.springcloud.utils.JSONUtils;
 
@@ -42,13 +43,17 @@ public class HttpController {
 							@RequestBody JSONObject body) throws Exception{
 		String servletPath = getOperator(request, body);
 		m_logger.info("Begin to deal with " + request.getServletPath());
-		System.out.println(body.toJavaObject(Map.class));
-		HttpBodyHandler handler = configure.geHandler(servletPath);
+		
+		Method targetMethod = getTargetMethod(servletPath);
+		
+		Object returnObject = targetMethod.invoke(
+						getInstance(servletPath), 
+						getParams(body, targetMethod));
+		
 		m_logger.info("Successfully deal with " + request.getServletPath());
-//		return responseBody;
-		return null;
+		return JSON.toJSONString(returnObject);
 	}
-	
+
 	@RequestMapping("/*/**")
 	@ResponseBody
 	public String handleInvalidHttpRequestURL(HttpServletRequest request) {
@@ -62,19 +67,45 @@ public class HttpController {
 	@ExceptionHandler
 	@ResponseBody
 	public String handleInvalidHttpRequestException(HttpServletRequest request, Exception e) {
-		m_logger.error("Fail to deal with " + request.getPathInfo() 
-									+ ", the reason is: " + String.valueOf(e));
+		m_logger.error("Fail to deal with " + request.getServletPath() 
+									+ ", the reason is: " + String.valueOf(e.getMessage()));
         return JSONUtils.toJSONString(
-        		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED, String.valueOf(e)));
+        		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED, String.valueOf(e.getMessage())));
 	}
 	
 	
 	/**************************************************
 	 * 
+	 * 
+	 * 
 	 **************************************************/
-	private String getOperator(HttpServletRequest request, 
+	protected String getOperator(HttpServletRequest request, 
 							JSONObject body) {
 		return request.getServletPath().substring(1);
 	}
 
+	protected HttpBodyHandler getInstance(String servletPath)
+			throws InstantiationException, IllegalAccessException, Exception {
+		return (HttpBodyHandler) configure.geHandler(servletPath).newInstance();
+	}
+	
+	protected Object[] getParams(JSONObject body, Method targetMethod) {
+		Class<?>[] pTypes = targetMethod.getParameterTypes();
+		String[] pNames = targetMethod.getAnnotation(BeanDefinition.class).names();
+		
+		Object[] pObjects = (pTypes.length != 0) ? new Object[pTypes.length] : null;		
+		for (int i = 0; i < pTypes.length; i++) {
+			pObjects[i] = body.getObject(pNames[i], pTypes[i]);
+		}
+		return pObjects;
+	}
+
+	protected Method getTargetMethod(String servletPath) throws Exception {
+		for (Method method : configure.geHandler(servletPath).getMethods()) {
+			if (method.isAnnotationPresent(BeanDefinition.class)) {
+				return method;
+			}
+		}
+		throw new HttpHandlerException(HttpConstants.EXCEPTION_MISSING_BEANDEFINITION_ANOTATION);
+	}
 }

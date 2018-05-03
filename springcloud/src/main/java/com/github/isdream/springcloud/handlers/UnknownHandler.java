@@ -6,6 +6,7 @@ package com.github.isdream.springcloud.handlers;
 
 import org.springframework.stereotype.Component;
 
+import com.github.isdream.springcloud.core.annotation.BeanDefinition;
 import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 
 /**
@@ -18,6 +19,10 @@ import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 @Component
 public class UnknownHandler extends HttpBodyHandler {
 
+	@BeanDefinition
+	public void handle() {
+	}
+	
 	@Override
 	public String getOperation() {
 		return "unknown";

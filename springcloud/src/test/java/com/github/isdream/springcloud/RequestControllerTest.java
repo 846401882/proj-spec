@@ -1,7 +1,7 @@
 /**
  * Copyright (2018, ) Hebei Turing CO., LTD.
  */
-package com.hbturing.eteacher.servicefrk;
+package com.github.isdream.springcloud;
 
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;

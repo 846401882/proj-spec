@@ -19,7 +19,7 @@ public class HttpHandlerException extends Exception {
 	private static final long serialVersionUID = -9056743329986575387L;
 	
 	
-	protected final int status;
+	protected int status;
 
 	public HttpHandlerException(int status, String message, Throwable cause) {
 		super(message, cause);
@@ -30,6 +30,11 @@ public class HttpHandlerException extends Exception {
 	public HttpHandlerException(int status, String message) {
 		super(message);
 		this.status = status;
+	}
+
+
+	public HttpHandlerException(String message) {
+		super(message);
 	}
 
 

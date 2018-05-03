@@ -7,8 +7,6 @@ import java.util.Properties;
 
 import org.springframework.stereotype.Component;
 
-import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
-
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)
  * @since   2018/4/28
@@ -22,9 +20,8 @@ public class HttpHandlerConfigure  {
 		handlers.put(kind, clazz);
 	}
 
-	public HttpBodyHandler geHandler(String kind) throws Exception {
-		return (HttpBodyHandler) ((Class<?>) 
-				handlers.get(kind)).newInstance();
+	public Class<?> geHandler(String kind) throws Exception {
+		return (Class<?>) handlers.get(kind);
 	}
 
 
