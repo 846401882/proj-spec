@@ -6,7 +6,7 @@ package com.github.isdream.springcloud.handlers;
 
 import org.springframework.stereotype.Component;
 
-import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
+import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 
 /**
  * @author wuheng@otcaix.iscas.ac.cn

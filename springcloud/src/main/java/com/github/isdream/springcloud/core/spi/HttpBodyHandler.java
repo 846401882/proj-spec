@@ -1,15 +1,15 @@
 /**
  * Copyright (2018, ) Institute of Software, Chinese Academy of Sciences
  */
-package com.github.isdream.springcloud.cores.spi;
+package com.github.isdream.springcloud.core.spi;
 
 
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 
-import com.github.isdream.springcloud.cores.HttpController;
-import com.github.isdream.springcloud.cores.HttpHandlerConfigure;
+import com.github.isdream.springcloud.core.HttpController;
+import com.github.isdream.springcloud.core.HttpHandlerConfigure;
 
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)

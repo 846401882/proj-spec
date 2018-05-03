@@ -1,8 +1,10 @@
 /**
  * Copyright (2018, ) Institute of Software, Chinese Academy of Sciences
  */
-package com.github.isdream.springcloud.cores;
+package com.github.isdream.springcloud.core;
 
+
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
+import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 import com.github.isdream.springcloud.utils.JSONUtils;
 
 /**
@@ -38,9 +40,10 @@ public class HttpController {
 	public String handleVaildHttpRequest(
 							HttpServletRequest request, 
 							@RequestBody JSONObject body) throws Exception{
+		String servletPath = getOperator(request, body);
 		m_logger.info("Begin to deal with " + request.getServletPath());
-		HttpBodyHandler handler = configure.geHandler(getOperator(request, body));
-//		String responseBody = configure.geHandler(getOperator(request, body)).handle(body);
+		System.out.println(body.toJavaObject(Map.class));
+		HttpBodyHandler handler = configure.geHandler(servletPath);
 		m_logger.info("Successfully deal with " + request.getServletPath());
 //		return responseBody;
 		return null;
@@ -49,7 +52,7 @@ public class HttpController {
 	@RequestMapping("/*/**")
 	@ResponseBody
 	public String handleInvalidHttpRequestURL(HttpServletRequest request) {
-		m_logger.error("Fail to deal with " + request.getPathInfo() 
+		m_logger.error("Fail to deal with " + request.getServletPath() 
 						+ " the reason is: " + HttpConstants.EXCEPTION_INVALID_REQUEST_URL);
 		return JSONUtils.toJSONString(
         		new HttpResponse(HttpConstants.HTTP_RESPONSE_STATUS_FAILED
@@ -71,9 +74,7 @@ public class HttpController {
 	 **************************************************/
 	private String getOperator(HttpServletRequest request, 
 							JSONObject body) {
-		String operation = request.getServletPath().substring(1);
-		return (!StringUtils.isEmpty(operation)) ? operation :
-				(String) body.get(HttpConstants.HTTP_REQUEST_PATH_INFO);
+		return request.getServletPath().substring(1);
 	}
 
 }

@@ -1,13 +1,13 @@
 /**
  * Copyright (2018, ) Institute of Software, Chinese Academy of Sciences
  */
-package com.github.isdream.springcloud.cores;
+package com.github.isdream.springcloud.core;
 
 import java.util.Properties;
 
 import org.springframework.stereotype.Component;
 
-import com.github.isdream.springcloud.cores.spi.HttpBodyHandler;
+import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)

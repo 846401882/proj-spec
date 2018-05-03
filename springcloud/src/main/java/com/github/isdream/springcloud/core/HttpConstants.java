@@ -1,7 +1,7 @@
 /**
  * Copyrigt (2018, ) Institute of Software, Chinese Academy of Sciences
  */
-package com.github.isdream.springcloud.cores;
+package com.github.isdream.springcloud.core;
 
 /**
  * @author wuheng@otcaix.iscas.ac.cn

@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.github.isdream.springcloud.cores.HttpConstants;
+import com.github.isdream.springcloud.core.HttpConstants;
 
 /**
  * @author wuheng(@otcaix.iscas.ac.cn)
@@ -27,7 +27,7 @@ import com.github.isdream.springcloud.cores.HttpConstants;
  * @desc
  */
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = com.github.isdream.springcloud.cores.HttpController.class)
+@SpringBootTest(classes = com.github.isdream.springcloud.core.HttpController.class)
 @AutoConfigureMockMvc
 public class RequestControllerTest  {
 
