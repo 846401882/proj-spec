@@ -20,7 +20,8 @@ import com.github.isdream.springcloud.core.spi.HttpBodyHandler;
 public class UnknownHandler extends HttpBodyHandler {
 
 	@BeanDefinition
-	public void handle() {
+	public Object handle() {
+		return "This is a demo";
 	}
 	
 	@Override
